@@ -1,18 +1,24 @@
 {
   "name": "audioinsights-service",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "compile": "tsc",
+    "start": "npm run compile && node ./dist/index.js"
   },
   "author": "Matt Enterline",
   "license": "ISC",
   "dependencies": {
+    "@apollo/server": "^4.10.5",
     "express": "^4.19.2",
     "graphql": "^16.9.0",
     "graphql-http": "^1.22.1",
     "ruru": "^2.0.0-beta.13"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "typescript": "^5.5.4"
   }
 }
