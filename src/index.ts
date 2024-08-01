@@ -1,53 +1,9 @@
-// The ApolloServer constructor requires two parameters: your schema
-import { ApolloServer, gql } from "apollo-server";
-
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-
-  # This "Book" type defines the queryable fields: 'title' and 'author'.
-  type Book {
-    title: String!
-    author: String!
-    id: ID!
-    titleAndAuthor: String!
-  }
-
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
-  }
-`;
-const books = [
-  {
-    id: 1,
-    title: "The Awakening",
-    author: "Kate Chopin",
-  },
-  {
-    id: 2,
-    title: "City of Glass",
-    author: "Paul Auster",
-  },
-];
-export const resolvers = {
-  Query: {
-    books: () => books,
-  },
-  Book: {
-    titleAndAuthor: (parents, args, context, info) => {
-      return `${parents.title} by ${parents.author}`;
-    },
-  },
-};
+import { ApolloServer } from "apollo-server";
+import { typeDefs } from "./typedefs";
+import { resolvers } from "./resolvers";
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-// The `listen` method launches a web server.
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
